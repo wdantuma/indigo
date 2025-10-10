@@ -8,7 +8,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/bluesky-social/indigo/atproto/data"
+	"github.com/bluesky-social/indigo/atproto/atdata"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -50,7 +50,7 @@ func TestInteropProcedureValid(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
-		body, err := data.UnmarshalJSON(fixture.Body)
+		body, err := atdata.UnmarshalJSON(fixture.Body)
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -89,7 +89,7 @@ func TestInteropProcedureInvalid(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
-		body, err := data.UnmarshalJSON(fixture.Body)
+		body, err := atdata.UnmarshalJSON(fixture.Body)
 		if err != nil {
 			t.Fatal(err)
 		}
