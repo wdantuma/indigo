@@ -14,20 +14,19 @@ import (
 	"github.com/bluesky-social/indigo/events"
 	"github.com/bluesky-social/indigo/events/schedulers/parallel"
 
-	"github.com/carlmjohnson/versioninfo"
+	"github.com/earthboundkid/versioninfo/v2"
 	"github.com/gorilla/websocket"
-	"github.com/urfave/cli/v2"
+	"github.com/urfave/cli/v3"
 )
 
 // write out error cases as JSON files to disk, for use in regression tests
 var CAPTURE_TEST_CASES = false
 
-func runVerifyFirehose(cctx *cli.Context) error {
-	ctx := context.Background()
+func runVerifyFirehose(ctx context.Context, cmd *cli.Command) error {
 
-	slog.SetDefault(configLogger(cctx, os.Stdout))
+	slog.SetDefault(configLogger(ctx, cmd, os.Stdout))
 
-	relayHost := cctx.String("relay-host")
+	relayHost := cmd.String("relay-host")
 
 	dialer := websocket.DefaultDialer
 	u, err := url.Parse(relayHost)
@@ -36,7 +35,7 @@ func runVerifyFirehose(cctx *cli.Context) error {
 	}
 	u.Path = "xrpc/com.atproto.sync.subscribeRepos"
 	con, _, err := dialer.Dial(u.String(), http.Header{
-		"User-Agent": []string{fmt.Sprintf("goat/%s", versioninfo.Short())},
+		"User-Agent": []string{fmt.Sprintf("at-repo-tool/%s", versioninfo.Short())},
 	})
 	if err != nil {
 		return fmt.Errorf("subscribing to firehose failed (dialing): %w", err)

@@ -7,17 +7,16 @@ import (
 	"log/slog"
 	"net/http"
 
-	"github.com/bluesky-social/indigo/atproto/data"
+	"github.com/bluesky-social/indigo/atproto/atdata"
 	"github.com/bluesky-social/indigo/atproto/identity"
 	"github.com/bluesky-social/indigo/atproto/lexicon"
 	"github.com/bluesky-social/indigo/atproto/syntax"
 
-	"github.com/urfave/cli/v2"
+	"github.com/urfave/cli/v3"
 )
 
-func runValidateRecord(cctx *cli.Context) error {
-	ctx := context.Background()
-	args := cctx.Args().Slice()
+func runValidateRecord(ctx context.Context, cmd *cli.Command) error {
+	args := cmd.Args().Slice()
 	if len(args) != 2 {
 		return fmt.Errorf("expected two args (catalog path and AT-URI)")
 	}
@@ -64,7 +63,7 @@ func runValidateRecord(cctx *cli.Context) error {
 		return err
 	}
 
-	body, err := data.UnmarshalJSON(respBytes)
+	body, err := atdata.UnmarshalJSON(respBytes)
 	if err != nil {
 		return err
 	}
