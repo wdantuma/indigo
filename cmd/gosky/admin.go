@@ -396,6 +396,7 @@ var listReportsCmd = &cli.Command{
 			nil,   // addedLabels []string
 			nil,   // addedTags []string
 			"",    // ageAssuranceState
+			"",    // batchId string
 			nil,   // collections []string
 			"",    // comment string
 			"",    // createdAfter string
@@ -414,6 +415,7 @@ var listReportsCmd = &cli.Command{
 			"",    // subject string
 			"",    // subjectType string
 			[]string{"tools.ozone.moderation.defs#modEventReport"}, // types []string
+			false, // withStrike bool
 		)
 		if err != nil {
 			return err
@@ -713,6 +715,7 @@ var queryModerationStatusesCmd = &cli.Command{
 			nil,   // addedLabels []string
 			nil,   // addedTags []string
 			"",    // ageAssuranceState
+			"",    // batchId string
 			nil,   // collections []string
 			"",    // comment string
 			"",    // createdAfter string
@@ -731,6 +734,7 @@ var queryModerationStatusesCmd = &cli.Command{
 			"",    // subject string
 			"",    // subjectType string
 			[]string{"tools.ozone.moderation.defs#modEventReport"}, // types []string
+			false, // withStrike bool
 		)
 		if err != nil {
 			return err

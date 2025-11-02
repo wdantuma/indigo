@@ -74,6 +74,7 @@ func pollNewReports(ctx context.Context, cmd *cli.Command) error {
 			nil,   // addedLabels []string
 			nil,   // addedTags []string
 			"",    // ageAssuranceState
+			"",    // batchId string
 			nil,   // collections []string
 			"",    // comment string
 			"",    // createdAfter string
@@ -92,6 +93,7 @@ func pollNewReports(ctx context.Context, cmd *cli.Command) error {
 			"",    // subject string
 			"",    // subjectType string
 			[]string{"tools.ozone.moderation.defs#modEventReport"}, // types []string
+			false, // withStrike bool
 		)
 		if err != nil {
 			return err
