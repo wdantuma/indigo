@@ -108,8 +108,6 @@ func validateRequestConfig(cat Catalog, inputData any, parameters url.Values, re
 
 func validateData(cat Catalog, def any, d any, flags ValidateFlags) error {
 	switch v := def.(type) {
-	case SchemaNull:
-		return v.Validate(d)
 	case SchemaBoolean:
 		return v.Validate(d)
 	case SchemaInteger:
