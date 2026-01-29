@@ -12,7 +12,6 @@ import (
 	"github.com/gorilla/websocket"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
-	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
 )
@@ -31,6 +30,7 @@ type TapServer struct {
 func (ts *TapServer) Start(address string) error {
 	ts.echo = echo.New()
 	ts.echo.HideBanner = true
+	ts.echo.HidePort = true // silence http server started on [::]:port log line
 	ts.echo.Use(middleware.LoggerWithConfig(middleware.DefaultLoggerConfig))
 
 	// Apply admin auth middleware if configured
@@ -57,12 +57,6 @@ func (ts *TapServer) Start(address string) error {
 // Shutdown gracefully shuts down the HTTP server.
 func (ts *TapServer) Shutdown(ctx context.Context) error {
 	return ts.echo.Shutdown(ctx)
-}
-
-// RunMetrics starts the metrics and pprof server on a separate port.
-func (ts *TapServer) RunMetrics(listen string) error {
-	http.Handle("/metrics", promhttp.Handler())
-	return http.ListenAndServe(listen, nil)
 }
 
 func (ts *TapServer) handleHealthcheck(c echo.Context) error {
